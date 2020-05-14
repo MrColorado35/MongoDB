@@ -47,7 +47,7 @@ coll = conn[DBS_NAME][COLLECTION_NAME]
 # documents = coll.find({'first': 'douglas'})         
 
                     # to remove one record:
-# coll.delete_one({'first': 'douglas'})
+# coll.delete_one({'first': 'stan'})
 
                     # to update one record:
                     # first argument is a search string, to find all with certain type key:value pair,
@@ -55,9 +55,9 @@ coll = conn[DBS_NAME][COLLECTION_NAME]
 # coll.update_one({'nationality': 'american'}, {'$set':{'hair_colour': 'maroon'}})
 
                     # To update many:
-coll.update_many({'nationality': 'american'}, {'$set':{'hair_colour': 'maroon'}})
+#coll.update_many({'nationality': 'american'}, {'$set':{'hair_colour': 'maroon'}})
 
-documents = coll.find({'nationality': 'american'})
+documents = coll.find()
 
 for doc in documents:
     print(doc)
