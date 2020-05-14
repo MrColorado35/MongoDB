@@ -1,9 +1,8 @@
 import pymongo
 import os
 
-MONGODB_URI = "mongodb+srv://root:r00tUser@myfirstcluster-vdori.mongodb.net/myTestDB?retryWrites=true&w=majority"
 MONGODB_URI = os.getenv("MONGO_URI")
-DBS_NAME = "myTestDB"
+DBS_NAME = "mytestdb"
 COLLECTION_NAME = "myFirstMDB"
 
 def mongo_connect(url):
@@ -13,8 +12,8 @@ def mongo_connect(url):
         return conn
     except pymongo.errors.ConnectionFailure as e:
         print("Could not connect to MongoDB: %s") % e
-
-conn = mongo_connect(MONGODB_URI) 
+        
+conn = mongo_connect(MONGODB_URI)
 
 coll = conn[DBS_NAME][COLLECTION_NAME]
 
