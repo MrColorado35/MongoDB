@@ -64,6 +64,62 @@ def add_record():
     except:
         print("Error accessing the database! Whole world will burn in 3... 2... 1.. au")
 
+# To find one record, using our get_record function:        
+
+def find_record():
+    doc = get_record()
+    if doc:
+        print("")
+        for k,v in doc.items():
+            if k != "_id":
+                print(k.capitalize() + ": " + v.capitalize())
+
+# To edit our record:
+
+def edit_record():
+    doc = get_record()
+    if doc:
+        update_doc={}
+        print("")
+        for k,v in doc.items():
+            if k != "_id":
+                update_doc[k] = input(k.capitalize() + " [" + v + "]: ")
+                #now if we did not put any information for some key=value pairs, we don't want it to disappear:
+                if update_doc[k] == "":
+                    update_doc[k] = v
+
+        try:
+            coll.update_one(doc, {'$set': update_doc})
+            print("")
+            print("Document updated! Great job Stan! \n Computers love you! ")
+        except:
+            print("Error accessing the database. You unlucky, poor human. Don't play lotto tonight.")
+
+# To delete record:
+
+def delete_record():
+
+    doc = get_record()
+
+    if doc:
+        print("")
+        for k,v in doc.items():
+            if k != "_id":
+                print(k.capitalize() + ": " + v.capitalize())
+            
+        print("")
+        confirmation = input("Is this the document you want to delete?\n Y or N >")
+        print("")
+
+        if confirmation.lower() == "y":
+            try:
+                coll.delete_one(doc)
+                print("Document deleted!")
+            except:
+                print("Error accessing the database")
+        else:
+            print("Document not deleted")
+
 
 # Main loop gives us our menu. It's a loop that will bring it back on the end of every task, until 5 will be choosen
 def main_loop():
@@ -72,11 +128,11 @@ def main_loop():
         if option == "1":
             add_record()
         elif option == "2":
-            print("You selected option 2")
+            find_record()
         elif option == "3":
-            print("You selected option 3")
+            edit_record()
         elif option == "4":
-            print("You selected option 4")
+            delete_record()
         elif option == "5":
             conn.close()
             break
